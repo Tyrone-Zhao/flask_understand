@@ -1,5 +1,5 @@
 class Config(object):
-    SECRET_KEY = '736670cb10a600b695a55839ca3a5aa54a7d7356cdef815d2ad6e19a2031182b'
+    SECRET_KEY = '408eadc9ddefaa9dd3d42bff28bc6daff32f6c659b2026fb7f51f4ac24cab3e5'
 
 
 class ProdConfig(Config):
