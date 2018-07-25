@@ -3,10 +3,10 @@ class Config(object):
 
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
 
 
 class DevConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
     # SQLALCHEMY_ECHO = True
