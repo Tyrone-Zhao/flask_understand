@@ -1,8 +1,8 @@
-{% extends "blog/base.html" %}
-{% block title %}{{ user.username }}'s Posts{% endblock %}
+{% extends "base.html" %}
+{% block title %}{{ tag.title }}{% endblock %}
 {% block body %}
     <div class="row">
-        <h1 class="text-center">Posts By {{ user.username }}</h1>
+        <h1 class="text-center">Posts With Tag {{ tag.title }}</h1>
         <div class="col-lg-9">
             {% for post in posts %}
                 <div class="row">

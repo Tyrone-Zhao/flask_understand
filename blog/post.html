@@ -1,4 +1,4 @@
-{% extends "blog/base.html" %}
+{% extends "base.html" %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block body %}
     <div class="row">
@@ -29,18 +29,7 @@
             {% endif %}
             <div class="row">
                 <div class="col-lg-12">
-                    {% if post.type == "blog" %}
-                        {{ post.text | safe }}
-                    {% elif post.type == "image" %}
-                        <img src="{{ post.image_url }}" alt="{{ post.title }}">
-                    {% elif post.type == "video" %}
-                        {{ post.video_object | safe }}
-                    {% elif post.type == "quote" %}
-                        <blockquote>
-                            {{ post.text | safe }}
-                        </blockquote>
-                        <p>{{ post.author }}</p>
-                    {% endif %}
+                    {{ post.text | safe }}
                 </div>
             </div>
             <div class="row">

@@ -1,9 +1,15 @@
+import datetime
+
 from flask_sqlalchemy import SQLAlchemy
+from flask_mongoengine import MongoEngine
 from flask_login import AnonymousUserMixin
 
 from deep_understand_flask.extensions import bcrypt
 
+available_roles = ('admin', 'poster', 'default')
+
 db = SQLAlchemy()
+mongo = MongoEngine()
 
 tags = db.Table(
     'post_tags',
@@ -119,3 +125,79 @@ class Tag(db.Model):
 
     def __repr__(self):
         return "<Tag '{}'>".format(self.title)
+
+
+#
+# Mongo Example Code
+#
+
+class Userm(mongo.Document):
+    username = mongo.StringField(required=True)
+    password = mongo.StringField(required=True)
+    roles = mongo.ListField(mongo.StringField(choices=available_roles))
+
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+
+class Commentm(mongo.EmbeddedDocument):
+    name = mongo.StringField(required=True)
+    text = mongo.StringField(required=True)
+    date = mongo.DateTimeField(
+        default=datetime.datetime.now()
+    )
+
+    def __repr__(self):
+        return "<Comment '{}'>".format(self.text[:15])
+
+
+class Postm(mongo.Document):
+    title = mongo.StringField(required=True)
+    publish_date = mongo.DateTimeField(
+        default=datetime.datetime.now()
+    )
+    user = mongo.ReferenceField(Userm)
+    comments = mongo.ListField(
+        mongo.EmbeddedDocumentField(Commentm)
+    )
+    tags = mongo.ListField(mongo.StringField())
+
+    def __repr__(self):
+        return "<Post '{}'>".format(self.title)
+
+    meta = {
+        'allow_inheritance': True
+    }
+
+
+class BlogPost(Postm):
+    text = mongo.StringField(required=True)
+
+    @property
+    def type(self):
+        return "blog"
+
+
+class VideoPost(Postm):
+    video_object = mongo.StringField(required=True)
+
+    @property
+    def type(self):
+        return "video"
+
+
+class ImagePost(Postm):
+    image_url = mongo.StringField(required=True)
+
+    @property
+    def type(self):
+        return "image"
+
+
+class QuotePost(Postm):
+    quote = mongo.StringField(required=True)
+    author = mongo.StringField(required=True)
+
+    @property
+    def type(self):
+        return "quote"
