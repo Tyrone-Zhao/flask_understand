@@ -1,5 +1,7 @@
 class Config(object):
-    SECRET_KEY = '408eadc9ddefaa9dd3d42bff28bc6daff32f6c659b2026fb7f51f4ac24cab3e5'
+    SECRET_KEY = '736670cb10a600b695a55839ca3a5aa54a7d7356cdef815d2ad6e19a2031182b'
+    RECAPTCHA_PUBLIC_KEY = "6LeJTWYUAAAAAO8TalJ8XVhdLN4JbhusjYoMQ0m7"
+    RECAPTCHA_PRIVATE_KEY = "6LeJTWYUAAAAALGcNNHKwMDo7ZqawKZ0LWg-gjUI"
 
 
 class ProdConfig(Config):
