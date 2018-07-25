@@ -1,22 +1,18 @@
 from flask import Flask, redirect, url_for
-from deep_understand_flask.config import DevConfig
-
 from deep_understand_flask.models import db
 from deep_understand_flask.controllers.blog import blog_blueprint
 
 
-app = Flask(__name__)
-app.config.from_object(DevConfig)
+def create_app(object_name):
+    app = Flask(__name__)
+    app.config.from_object(object_name)
 
-db.init_app(app)
+    db.init_app(app)
 
+    @app.route('/')
+    def index():
+        return redirect(url_for('blog.home'))
 
-@app.route('/')
-def index():
-    return redirect(url_for('blog.home'))
+    app.register_blueprint(blog_blueprint)
 
-app.register_blueprint(blog_blueprint)
-
-
-if __name__ == '__main__':
-    app.run()
+    return app
