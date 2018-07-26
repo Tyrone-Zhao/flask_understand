@@ -27,13 +27,13 @@ rest_api = Api()
 
 @login_manager.user_loader
 def load_user(userid):
-    from models import User
+    from .models import User
     return User.query.get(userid)
 
 
 @oid.after_login
 def create_or_login(resp):
-    from models import db, User
+    from .models import db, User
     username = resp.fullname or resp.nickname or resp.email
 
     if not username:

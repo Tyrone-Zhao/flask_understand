@@ -2,7 +2,7 @@ from flask import Flask
 from flask_login import current_user
 from flask_principal import identity_loaded, UserNeed, RoleNeed
 
-from deep_understand_flask.models import db, mongo
+from deep_understand_flask.models import db
 from deep_understand_flask.extensions import (
     bcrypt, oid, login_manager, principals, rest_api)
 from deep_understand_flask.controllers.main import main_blueprint

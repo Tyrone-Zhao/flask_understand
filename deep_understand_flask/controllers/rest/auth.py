@@ -5,6 +5,7 @@ from deep_understand_flask.models import User
 from .parsers import user_post_parser
 
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+import json
 
 
 class AuthApi(Resource):
@@ -15,6 +16,6 @@ class AuthApi(Resource):
 
         if user.check_password(args['password']):
             s = Serializer(current_app.config['SECRET_KEY'], expires_in=604800)
-            return {"token": s.dumps({'id': user.id})}
+            return {"token": str(s.dumps({'id': user.id}), encoding="utf-8")}
         else:
             abort(401)

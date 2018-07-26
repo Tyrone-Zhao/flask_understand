@@ -1,4 +1,4 @@
-from flask_wtf import Form, RecaptchaField
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import (
     StringField,
     TextAreaField,
@@ -11,7 +11,7 @@ from wtforms.validators import DataRequired, Length, EqualTo, URL
 from deep_understand_flask.models import User
 
 
-class CommentForm(Form):
+class CommentForm(FlaskForm):
     name = StringField(
         'Name',
         validators=[DataRequired(), Length(max=255)]
@@ -19,7 +19,7 @@ class CommentForm(Form):
     text = TextAreaField(u'Comment', validators=[DataRequired()])
 
 
-class PostForm(Form):
+class PostForm(FlaskForm):
     title = StringField('Title', [DataRequired(), Length(max=255)])
     type = SelectField('Post Type', choices=[
         ('blog', 'Blog Post'),
@@ -33,7 +33,7 @@ class PostForm(Form):
     author = StringField('Author', [Length(max=255)])
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     username = StringField('Username', [DataRequired(), Length(max=255)])
     password = PasswordField('Password', [DataRequired()])
     remember = BooleanField("Remember Me")
@@ -59,11 +59,11 @@ class LoginForm(Form):
         return True
 
 
-class OpenIDForm(Form):
+class OpenIDForm(FlaskForm):
     openid = StringField('OpenID URL', [DataRequired(), URL()])
 
 
-class RegisterForm(Form):
+class RegisterForm(FlaskForm):
     username = StringField('Username', [DataRequired(), Length(max=255)])
     password = PasswordField('Password', [DataRequired(), Length(min=8)])
     confirm = PasswordField('Confirm Password', [

@@ -11,7 +11,6 @@ from flask_principal import Permission, UserNeed
 from deep_understand_flask.extensions import poster_permission, admin_permission
 from deep_understand_flask.models import (
     db, Post, Tag, Comment, User, tags,
-    BlogPost, QuotePost, VideoPost, ImagePost
 )
 from deep_understand_flask.forms import CommentForm, PostForm
 
